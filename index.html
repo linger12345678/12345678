@@ -1,0 +1,2241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小学数学六年级上册 - 圆的面积互动课件</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: "Microsoft YaHei", "SimHei", "Heiti SC", sans-serif;
+            background-color: #f1f5f9;
+            color: #0f172a;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* 顶部导航与状态栏 */
+        .top-bar {
+            height: 48px;
+            line-height: 48px;
+            background-color: #ffffff;
+            border-bottom: 2px solid #cbd5e1;
+            padding: 0 20px;
+            position: relative;
+            z-index: 100;
+        }
+
+        .btn-home {
+            display: inline-block;
+            height: 34px;
+            line-height: 30px;
+            padding: 0 16px;
+            margin-top: 7px;
+            background-color: #f8fafc;
+            border: 2px solid #0284c7;
+            border-radius: 8px;
+            color: #0284c7;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .top-title {
+            float: right;
+            font-size: 18px;
+            font-weight: bold;
+            color: #475569;
+        }
+
+        /* 主视口 */
+        .main-stage {
+            width: 100%;
+            height: calc(100% - 48px);
+            position: relative;
+        }
+
+        .page-panel {
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .page-panel.active {
+            display: block;
+        }
+
+        /* ================= 首页样式 ================= */
+        .home-container {
+            width: 100%;
+            height: 100%;
+            padding: 24px 36px;
+            box-sizing: border-box;
+        }
+
+        .home-left {
+            float: left;
+            width: 58%;
+            height: 100%;
+            background-color: #ffffff;
+            border: 2px solid #cbd5e1;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .home-title {
+            margin-top: 20px;
+            font-size: 40px;
+            font-weight: bold;
+            color: #0284c7;
+            letter-spacing: 2px;
+        }
+
+        .home-subtitle {
+            font-size: 19px;
+            color: #64748b;
+            margin-top: 6px;
+        }
+
+        .home-right {
+            float: right;
+            width: 39%;
+            height: 100%;
+            padding: 10px 10px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .menu-btn {
+            display: block;
+            width: 100%;
+            height: 94px;
+            line-height: 90px;
+            margin-bottom: 24px;
+            background-color: #ffffff;
+            border: 3px solid #0284c7;
+            border-radius: 18px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #0284c7;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 6px 12px rgba(2, 132, 199, 0.12);
+        }
+
+        .menu-btn:hover, .menu-btn:active {
+            background-color: #0284c7;
+            color: #ffffff;
+            transform: translateY(2px);
+        }
+
+        .menu-btn.orange-btn {
+            border-color: #ea580c;
+            color: #ea580c;
+            box-shadow: 0 6px 12px rgba(234, 88, 12, 0.12);
+        }
+        .menu-btn.orange-btn:hover, .menu-btn.orange-btn:active {
+            background-color: #ea580c;
+            color: #ffffff;
+        }
+
+        .menu-btn.green-btn {
+            border-color: #16a34a;
+            color: #16a34a;
+            box-shadow: 0 6px 12px rgba(22, 163, 74, 0.12);
+        }
+        .menu-btn.green-btn:hover, .menu-btn.green-btn:active {
+            background-color: #16a34a;
+            color: #ffffff;
+        }
+
+        /* ================= 触控通用按钮与底栏 ================= */
+        .touch-btn {
+            display: inline-block;
+            min-width: 80px;
+            height: 50px;
+            line-height: 46px;
+            padding: 0 12px;
+            margin: 0 2px;
+            background-color: #0284c7;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: bold;
+            border: 2px solid #0284c7;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+            vertical-align: middle;
+        }
+
+        .touch-btn:active { transform: translateY(2px); }
+        .touch-btn.orange { background-color: #ea580c; border-color: #ea580c; }
+        .touch-btn.green { background-color: #16a34a; border-color: #16a34a; }
+        .touch-btn.purple { background-color: #9333ea; border-color: #9333ea; }
+        .touch-btn.outline { background-color: #f8fafc; color: #334155; border-color: #cbd5e1; }
+        .touch-btn.active, .touch-btn[aria-pressed="true"] {
+            background-color: #0284c7;
+            border-color: #0284c7;
+            color: #ffffff;
+        }
+
+        .bottom-control-bar {
+            position: absolute;
+            bottom: 10px;
+            left: 16px;
+            right: 16px;
+            height: 72px;
+            background-color: #ffffff;
+            border: 2px solid #cbd5e1;
+            border-radius: 16px;
+            padding: 8px 10px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        /* ================= 数格法样式 ================= */
+        .grid-left {
+            float: left;
+            width: 55%;
+            height: calc(100% - 94px);
+            margin: 10px 10px 10px 16px;
+            background-color: #ffffff;
+            border: 2px solid #cbd5e1;
+            border-radius: 16px;
+            position: relative;
+        }
+
+        .grid-right {
+            float: right;
+            width: 41%;
+            height: calc(100% - 94px);
+            margin: 10px 16px 10px 10px;
+            background-color: #ffffff;
+            border: 2px solid #cbd5e1;
+            border-radius: 16px;
+            padding: 14px 18px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+
+        .calc-card {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 10px 14px;
+            margin-bottom: 10px;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .calc-title {
+            font-size: 17px;
+            font-weight: bold;
+            color: #0284c7;
+            margin-bottom: 6px;
+        }
+
+        .highlight-num {
+            font-weight: bold;
+            color: #ea580c;
+            font-size: 19px;
+        }
+
+        .limit-step-bar {
+            margin: 6px 0;
+            display: flex;
+            gap: 6px;
+        }
+        .btn-limit-step {
+            flex: 1;
+            height: 38px;
+            line-height: 34px;
+            background: #ffffff;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #475569;
+            cursor: pointer;
+            text-align: center;
+        }
+        .btn-limit-step.active {
+            background-color: #d97706;
+            border-color: #d97706;
+            color: #ffffff;
+        }
+
+        /* 专门揭晓答案的按钮样式 */
+        .btn-reveal {
+            display: block;
+            width: 100%;
+            height: 42px;
+            line-height: 38px;
+            margin: 8px 0;
+            background-color: #ea580c;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: bold;
+            border: 2px solid #ea580c;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 3px 6px rgba(234, 88, 12, 0.2);
+        }
+        .btn-reveal:active {
+            transform: translateY(2px);
+        }
+
+        /* ================= 转化法样式 ================= */
+        .sub-sidebar {
+            position: absolute;
+            left: 12px;
+            top: 16px;
+            bottom: 90px;
+            width: 130px;
+            background-color: #ffffff;
+            border: 2px solid #cbd5e1;
+            border-radius: 16px;
+            padding: 10px 8px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.04);
+            z-index: 10;
+        }
+
+        .sub-nav-btn {
+            display: block;
+            width: 100%;
+            height: 48px;
+            line-height: 44px;
+            margin-bottom: 8px;
+            background-color: #f8fafc;
+            color: #475569;
+            border: 2px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .sub-nav-btn.active {
+            background-color: #0284c7;
+            border-color: #0284c7;
+            color: #ffffff;
+        }
+
+        .sub-stage {
+            margin-left: 152px;
+            margin-right: 16px;
+            height: calc(100% - 94px);
+            margin-top: 10px;
+            position: relative;
+        }
+
+        .sub-tab-panel {
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .sub-tab-panel.active {
+            display: block;
+        }
+
+        .canvas-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background-color: #ffffff;
+            border: 2px solid #cbd5e1;
+            border-radius: 16px;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .derivation-steps {
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 11;
+            display: flex;
+            gap: 8px;
+            padding: 6px;
+            background: rgba(255, 255, 255, 0.94);
+            border: 1px solid #cbd5e1;
+            border-radius: 999px;
+            box-shadow: 0 3px 10px rgba(15, 23, 42, 0.08);
+        }
+
+        .derivation-step {
+            padding: 6px 12px;
+            border-radius: 999px;
+            color: #64748b;
+            font-weight: bold;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        .derivation-step.completed {
+            color: #166534;
+            background: #dcfce7;
+        }
+
+        .derivation-step.active {
+            color: #ffffff;
+            background: #0284c7;
+        }
+
+        .info-card-bottom {
+            position: absolute;
+            bottom: 12px;
+            left: 16px;
+            right: 16px;
+            background-color: rgba(255, 255, 255, 0.96);
+            border: 2px solid #0284c7;
+            border-radius: 14px;
+            padding: 8px 14px;
+            text-align: center;
+            font-size: 16px;
+            color: #1e293b;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+            z-index: 10;
+        }
+
+        .info-item {
+            display: inline-block;
+            margin: 3px 8px;
+            vertical-align: middle;
+        }
+
+        .formula-highlight {
+            color: #d97706;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 3px 8px;
+            gap: 6px;
+        }
+
+        .slider-label {
+            font-size: 15px;
+            font-weight: bold;
+            color: #334155;
+            white-space: nowrap;
+        }
+
+        .radius-slider {
+            width: 100px;
+            height: 8px;
+            accent-color: #0284c7;
+            cursor: pointer;
+        }
+
+        .radius-val-badge {
+            background-color: #0284c7;
+            color: #ffffff;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-size: 15px;
+            min-width: 52px;
+            text-align: center;
+        }
+
+        .custom-input {
+            width: 52px;
+            height: 38px;
+            line-height: 38px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            border: 2px solid #cbd5e1;
+            border-radius: 10px;
+            margin: 0 2px;
+            color: #0f172a;
+            background-color: #ffffff;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* 模态弹窗 */
+        .custom-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.5);
+            z-index: 99999;
+            text-align: center;
+        }
+
+        .custom-modal.active { display: block; }
+        .modal-content {
+            display: inline-block;
+            margin-top: 14%;
+            background-color: #ffffff;
+            border: 3px solid #0284c7;
+            border-radius: 20px;
+            padding: 28px 46px;
+            max-width: 80%;
+            box-shadow: 0 20px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 练习面板 */
+        .practice-container {
+            width: 100%;
+            height: 100%;
+            padding: 16px 30px;
+            box-sizing: border-box;
+            background-color: #ffffff;
+            border: 2px solid #cbd5e1;
+            border-radius: 16px;
+            overflow-y: auto;
+        }
+
+        .practice-status-bar {
+            height: 44px;
+            line-height: 44px;
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 0 16px;
+            margin-bottom: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #334155;
+        }
+
+        .practice-q-card {
+            background-color: #f0f9ff;
+            border: 2px solid #0284c7;
+            border-radius: 14px;
+            padding: 20px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #0f172a;
+            text-align: center;
+            min-height: 90px;
+            margin-bottom: 16px;
+        }
+
+        .practice-opt-btn {
+            display: inline-block;
+            width: 46%;
+            height: 56px;
+            line-height: 52px;
+            margin: 8px 2%;
+            background-color: #ffffff;
+            border: 2px solid #cbd5e1;
+            border-radius: 12px;
+            color: #1e293b;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .practice-opt-btn.correct { color: #166534; background-color: #dcfce7; border-color: #16a34a; }
+        .practice-opt-btn.incorrect { color: #991b1b; background-color: #fee2e2; border-color: #dc2626; }
+
+        /* 双人PK */
+        .pk-player { float: left; width: 50%; height: 100%; padding: 16px; box-sizing: border-box; }
+        .pk-player-1 { border-right: 2px dashed #cbd5e1; background-color: rgba(239, 68, 68, 0.02); }
+        .pk-player-2 { background-color: rgba(59, 130, 246, 0.02); }
+        .p1-color { color: #dc2626; }
+        .p2-color { color: #2563eb; }
+        .score-board { text-align: center; font-size: 42px; font-weight: bold; margin-bottom: 10px; }
+        .pk-q-box {
+            background-color: #ffffff;
+            border: 2px solid #cbd5e1;
+            border-radius: 14px;
+            padding: 14px;
+            font-size: 20px;
+            color: #0f172a;
+            text-align: center;
+            min-height: 80px;
+            margin-bottom: 14px;
+        }
+        .pk-opt-btn {
+            display: inline-block;
+            width: 44%;
+            height: 52px;
+            line-height: 48px;
+            margin: 2%;
+            background-color: #ffffff;
+            border: 2px solid #cbd5e1;
+            border-radius: 12px;
+            font-size: 19px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .table-custom {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+            font-size: 17px;
+        }
+        .table-custom th, .table-custom td {
+            border: 1px solid #e2e8f0;
+            padding: 8px;
+        }
+        .table-custom th {
+            background-color: #f8fafc;
+            color: #0284c7;
+        }
+            #trans-control-bar > * { flex-shrink: 0; }
+        @media (max-width: 1450px) {
+            #trans-control-bar { height: 124px; flex-wrap: wrap; align-content: center; }
+            #page-trans .sub-stage { height: calc(100% - 146px); }
+        }
+        @media (max-width: 700px) {
+            #trans-control-bar { justify-content: flex-start; overflow-x: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部状态栏 -->
+    <div class="top-bar">
+        <button type="button" class="btn-home" id="btn-back-home" style="display:none;">⟵ 返回首页</button>
+        <div class="top-title" id="page-indicator">小学数学 · 六年级上册</div>
+    </div>
+
+    <!-- 主展示区 -->
+    <div class="main-stage">
+
+        <!-- ================= 首页 ================= -->
+        <div class="page-panel active" id="page-home">
+            <div class="home-container clearfix">
+                <div class="home-left">
+                    <div class="home-title">圆的面积</div>
+                    <div class="home-subtitle">探索圆的面积公式推导与实际应用</div>
+                    <canvas id="canvas-home-circle" style="width:100%; height:calc(100% - 100px); display:block;"></canvas>
+                </div>
+                <div class="home-right">
+                    <button type="button" class="menu-btn" id="btn-goto-grid">
+                        ① 数格法与极限探究
+                    </button>
+                    <button type="button" class="menu-btn orange-btn" id="btn-goto-trans">
+                        ② 转化法割补推导
+                    </button>
+                    <button type="button" class="menu-btn green-btn" id="btn-goto-practice">
+                        ③ 拓展演练与擂台
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 1: 数格法与极限探究 ================= -->
+        <div class="page-panel" id="page-grid">
+            <div class="grid-left">
+                <canvas id="canvas-grid" style="width:100%; height:100%; display:block;"></canvas>
+            </div>
+
+            <div class="grid-right">
+                <div class="calc-card">
+                    <div class="calc-title">📘 数格法启发（半径 r = 10 cm）</div>
+                    <div id="grid-desc-text">
+                        这是一个半径为 10 cm 的圆。怎样求这个圆的面积呢？
+                        <br>点击下方<strong>【铺设方格网】</strong>开始探索！
+                    </div>
+                </div>
+
+                <!-- 极限思想交互步骤控制卡片 -->
+                <div class="calc-card" style="background-color:#fffbeb; border-color:#f59e0b;">
+                    <div class="calc-title" style="color:#b45309;">💡 极限思想（教材第63页“想一想”）</div>
+                    <div style="font-size:14px; color:#78350f; margin-bottom:4px;">
+                        选择不同方格边长，观察圆边缘锯齿与逼近效果：
+                    </div>
+                    <div class="limit-step-bar">
+                        <button type="button" class="btn-limit-step active" id="btn-grid-1cm">1 cm (初探)</button>
+                        <button type="button" class="btn-limit-step" id="btn-grid-5mm">5 mm (更细)</button>
+                        <button type="button" class="btn-limit-step" id="btn-grid-1mm">1 mm (极细)</button>
+                    </div>
+                    <div id="limit-insight-text" style="font-size:13px; color:#92400e; margin-top:4px;">
+                        当前格长：<strong>1 cm</strong>。边缘锯齿较明显，请让学生先估算或数一数。
+                    </div>
+                </div>
+
+                <!-- 统计分析卡片（带主动揭晓答案按键） -->
+                <div class="calc-card" id="grid-stat-card">
+                    <div class="calc-title">📊 面积统计与极限逼近分析</div>
+                    <div id="stat-view-indicator" style="font-weight:bold; color:#0284c7; margin-bottom:4px;">当前状态：请先铺设方格网</div>
+                    
+                    <!-- 关键按键：让教师控制何时公布答案 -->
+                    <button type="button" class="btn-reveal" id="btn-reveal-result">👉 点击揭晓统计与计算结果 👈</button>
+
+                    <div>1. 满一格（整格）个数：<span class="highlight-num" id="stat-full-count">--</span> 个</div>
+                    <div>2. 不满一格（半格）个数：<span class="highlight-num" id="stat-half-count">--</span> 个</div>
+                    <hr style="border:0; border-top:1px solid #e2e8f0; margin:6px 0;">
+                    <div>1/4 圆面积估算 ≈ <span class="highlight-num" id="stat-quarter-area">--</span> cm²</div>
+                    <div>整个圆面积估算 ≈ <span class="highlight-num" id="stat-total-area">--</span> cm²</div>
+                    <div style="margin-top:2px; color:#0284c7; font-weight:bold;">
+                        得出：面积大约是半径平方 (r²=100) 的 <span id="stat-ratio" style="color:#ea580c; font-size:18px;">--</span> 倍！
+                    </div>
+                    <div style="margin-top:2px; font-size:13px; color:#64748b;">
+                        真实面积：314.16 cm² ｜ 当前估算误差：<span id="stat-error-val" style="font-weight:bold; color:#0284c7;">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 数格法底栏操作 -->
+            <div class="bottom-control-bar">
+                <button type="button" class="touch-btn outline" id="btn-toggle-grid-lines">铺设方格网</button>
+                <button type="button" class="touch-btn outline" id="btn-toggle-grid-view">聚焦到 1/4 圆</button>
+                <button type="button" class="touch-btn outline" id="btn-show-full-grid">高亮整格</button>
+                <button type="button" class="touch-btn outline" id="btn-show-half-grid">高亮不满格</button>
+                <button type="button" class="touch-btn green" id="btn-calc-grid">一键统计与计算</button>
+                <button type="button" class="touch-btn orange" id="btn-reset-grid">重置圆</button>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 2: 转化法界面 ================= -->
+        <div class="page-panel" id="page-trans">
+            <div class="sub-sidebar">
+                <button type="button" class="sub-nav-btn active" id="btn-sub-trans">切拼实验</button>
+                <button type="button" class="sub-nav-btn" id="btn-sub-table">公式速查</button>
+            </div>
+
+            <div class="sub-stage">
+                <div class="sub-tab-panel active" id="sub-panel-trans">
+                    <div class="canvas-container" id="container-1">
+                        <div class="derivation-steps" aria-label="推导步骤">
+                            <span class="derivation-step active" id="step-slice">1 等分</span>
+                            <span class="derivation-step" id="step-unfold">2 展开</span>
+                            <span class="derivation-step" id="step-combine">3 拼合</span>
+                            <span class="derivation-step" id="step-explain">4 理解公式</span>
+                        </div>
+                        <div id="derivation-status" class="sr-only" aria-live="polite">第 1 步：把圆平均分成若干份。</div>
+                        <canvas id="canvas-derivation" role="img" aria-label="圆被等分、展开并交错拼成近似长方形的动画演示"></canvas>
+
+                        <div class="info-card-bottom hidden" id="derivation-info-card">
+                            <div class="info-item" style="font-weight: bold; color: #0284c7;">实时计算：</div>
+                            <div class="info-item">半径 r = <span id="txt-card-r" class="formula-highlight">5</span> cm</div>
+                            <div class="info-item">等分：<span id="txt-slices" class="formula-highlight">16</span> 份</div>
+                            <div class="info-item">长 a ≈ 半周长 (πr = <span id="txt-card-half-c" style="color:#0284c7; font-weight:bold;">15.7</span> cm)</div>
+                            <div class="info-item">宽 b = 半径 (r = <span id="txt-card-b" style="color:#0284c7; font-weight:bold;">5</span> cm)</div>
+                            <div class="info-item formula-highlight">面积 S = 长 × 宽 = πr × r = <span id="txt-card-area">78.5</span> cm²</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sub-tab-panel" id="sub-panel-table">
+                    <div class="canvas-container" style="padding:20px; overflow-y:auto; text-align:left;">
+                        <div style="float:left; width:50%; padding-right:12px; box-sizing:border-box;">
+                            <h3 style="margin-top:0; color:#0284c7;">常用 π 倍数表（π≈3.14）</h3>
+                            <table class="table-custom">
+                                <thead>
+                                    <tr><th>算式</th><th>近似值</th><th>算式</th><th>近似值</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>1 π</td><td>3.14</td><td>6 π</td><td>18.84</td></tr>
+                                    <tr><td>2 π</td><td>6.28</td><td>7 π</td><td>21.98</td></tr>
+                                    <tr><td>3 π</td><td>9.42</td><td>8 π</td><td>25.12</td></tr>
+                                    <tr><td>4 π</td><td>12.56</td><td>9 π</td><td>28.26</td></tr>
+                                    <tr><td>5 π</td><td>15.70</td><td>10 π</td><td>31.40</td></tr>
+                                    <tr><td>16 π</td><td>50.24</td><td>25 π</td><td>78.50</td></tr>
+                                    <tr><td>36 π</td><td>113.04</td><td>64 π</td><td>201.06</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div style="float:right; width:50%; padding-left:12px; box-sizing:border-box;">
+                            <h3 style="margin-top:0; color:#0284c7;">圆面积公式计算变形汇编</h3>
+                            <div style="font-size: 17px; line-height:2.2; color:#334155;">
+                                <div>1. <strong>已知半径 r：</strong> S = πr²</div>
+                                <div>2. <strong>已知直径 d：</strong> r = d ÷ 2，则 S = π(d/2)²</div>
+                                <div>3. <strong>已知周长 C：</strong> r = C ÷ (2π)，则 S = πr²</div>
+                                <div>4. <strong>圆环面积公式：</strong> S环 = πR² - πr² = π(R² - r²)</div>
+                                <hr style="border:0; border-top:1px solid #cbd5e1; margin:16px 0;">
+                                <div style="color:#d97706; font-weight:bold; background-color:#fef3c7; padding:12px; border-radius:12px;">
+                                    💡 易错提醒：πr² 表示 π × r × r，应当先算 r²，再与 π (3.14) 相乘！
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-control-bar" id="trans-control-bar">
+                <div class="control-group">
+                    <span class="slider-label">半径 r：</span>
+                    <input type="range" class="radius-slider" id="slider-radius" min="2" max="10" step="0.5" value="5">
+                    <span class="radius-val-badge" id="lbl-radius-val">5 cm</span>
+                </div>
+
+                <div class="control-group">
+                    <span class="slider-label">等份：</span>
+                    <button class="touch-btn outline slice-choice" id="btn-slice-8" style="min-width:38px; height:38px; line-height:34px; padding:0 4px;">8</button>
+                    <button class="touch-btn outline slice-choice active" id="btn-slice-16" style="min-width:38px; height:38px; line-height:34px; padding:0 4px;">16</button>
+                    <button class="touch-btn outline slice-choice" id="btn-slice-32" style="min-width:38px; height:38px; line-height:34px; padding:0 4px;">32</button>
+                    <button class="touch-btn outline slice-choice" id="btn-slice-64" style="min-width:38px; height:38px; line-height:34px; padding:0 4px;">64</button>
+                    <button class="touch-btn outline slice-choice" id="btn-slice-96" style="min-width:38px; height:38px; line-height:34px; padding:0 4px;">96</button>
+                    <button class="touch-btn outline slice-choice" id="btn-slice-192" style="min-width:38px; height:38px; line-height:34px; padding:0 4px;">192</button>
+                    <button class="touch-btn outline slice-choice" id="btn-slice-384" style="min-width:38px; height:38px; line-height:34px; padding:0 4px;">384</button>
+                    <input type="number" class="custom-input" id="input-custom-slice" min="4" max="384" step="2" value="16" aria-label="自定义等份，4至384的偶数">
+                    <button class="touch-btn outline" id="btn-set-custom-slice" style="min-width:46px; height:38px; line-height:34px; padding:0 4px; font-size:14px;">设置</button>
+                </div>
+
+                <button class="touch-btn orange" id="btn-unfold">展开</button>
+                <button class="touch-btn purple" id="btn-combine">拼合</button>
+                <button class="touch-btn green" id="btn-reset-transform">还原圆形</button>
+                <button class="touch-btn outline" id="btn-toggle-info">推导说明</button>
+            </div>
+        </div>
+
+        <!-- ================= PAGE 3: 拓展练习界面 ================= -->
+        <div class="page-panel" id="page-practice">
+            <div class="sub-sidebar">
+                <button type="button" class="sub-nav-btn active" id="btn-sub-single">个人闯关</button>
+                <button type="button" class="sub-nav-btn" id="btn-sub-pk">双人擂台</button>
+            </div>
+
+            <div class="sub-stage">
+                <div class="sub-tab-panel active" id="sub-panel-single">
+                    <div class="practice-container">
+                        <div class="practice-status-bar clearfix">
+                            <div style="float: left;">进度：<span id="single-q-index" style="color:#0284c7;">1</span> / <span id="single-q-total">8</span></div>
+                            <div style="float: left; margin-left: 30px;">得分：<span id="single-score" style="color:#16a34a;">0</span> 分</div>
+                            <div style="float: left; margin-left: 30px;">最高连对：<span id="single-streak" style="color:#ea580c;">0</span> 题</div>
+                            <div style="float: right;">
+                                <button class="touch-btn outline" id="btn-restart-single" style="height:36px; line-height:32px; min-width:80px; font-size:15px;">重新开始</button>
+                            </div>
+                        </div>
+
+                        <div class="practice-q-card" id="single-q-card">正在加载题目...</div>
+                        <div style="text-align:center; color:#64748b; font-size:15px; margin-bottom:10px;">本页计算统一取 π ≈ 3.14</div>
+                        <div id="single-opt-grid" style="text-align:center;"></div>
+                        <div class="calc-card hidden" id="single-exp-box" style="margin-top:14px; background:#fefce8; border-color:#eab308; color:#854d0e;"></div>
+                    </div>
+                </div>
+
+                <div class="sub-tab-panel" id="sub-panel-pk">
+                    <div class="canvas-container clearfix">
+                        <div class="pk-player pk-player-1">
+                            <div style="text-align:center; font-size:22px; font-weight:bold;" class="p1-color">红队 (左侧触控)</div>
+                            <div class="score-board p1-color" id="p1-score">0 分</div>
+                            <div class="pk-q-box" id="p1-q-text">准备开始答题...</div>
+                            <div id="p1-options" style="text-align:center;"></div>
+                        </div>
+                        <div class="pk-player pk-player-2">
+                            <div style="text-align:center; font-size:22px; font-weight:bold;" class="p2-color">蓝队 (右侧触控)</div>
+                            <div class="score-board p2-color" id="p2-score">0 分</div>
+                            <div class="pk-q-box" id="p2-q-text">准备开始答题...</div>
+                            <div id="p2-options" style="text-align:center;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-control-bar" id="practice-control-bar">
+                <button class="touch-btn green" id="btn-next-single" style="display:none;">下一题</button>
+                <button class="touch-btn green" id="btn-start-pk" style="display:none;">开始 / 重置 PK 对战</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 弹窗 -->
+    <div class="custom-modal" id="info-modal">
+        <div class="modal-content">
+            <div style="font-size:26px; font-weight:bold; color:#0284c7; margin-bottom:12px;" id="modal-title">提示</div>
+            <div style="font-size:19px; color:#334155; margin-bottom:20px;" id="modal-msg">内容</div>
+            <button class="touch-btn orange" id="modal-btn-close">确定</button>
+        </div>
+    </div>
+
+    <script>
+        function bindEvent(el, event, handler) {
+            if (!el) return;
+            if (el.addEventListener) el.addEventListener(event, handler, false);
+            else if (el.attachEvent) el.attachEvent('on' + event, handler);
+            else el['on' + event] = handler;
+        }
+
+        var ClassUtil = {
+            has: function(el, className) {
+                if (!el) return false;
+                if (el.classList) return el.classList.contains(className);
+                return new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
+            },
+            add: function(el, className) {
+                if (!el) return;
+                if (el.classList) el.classList.add(className);
+                else if (!this.has(el, className)) el.className += ' ' + className;
+            },
+            remove: function(el, className) {
+                if (!el) return;
+                if (el.classList) el.classList.remove(className);
+                else el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+            }
+        };
+
+        var audioCtx = null;
+        function getAudioContext() {
+            if (!audioCtx) {
+                var AudioClass = window.AudioContext || window.webkitAudioContext;
+                if (AudioClass) audioCtx = new AudioClass();
+            }
+            if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+            return audioCtx;
+        }
+
+        function playSound(type) {
+            try {
+                var ctx = getAudioContext();
+                if (!ctx) return;
+                var now = ctx.currentTime;
+                if (type === 'correct') {
+                    var osc = ctx.createOscillator();
+                    var gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(523.25, now);
+                    osc.frequency.exponentialRampToValueAtTime(783.99, now + 0.15);
+                    gain.gain.setValueAtTime(0.25, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.3);
+                } else if (type === 'wrong') {
+                    var osc = ctx.createOscillator();
+                    var gain = ctx.createGain();
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(220, now);
+                    osc.frequency.setValueAtTime(140, now + 0.15);
+                    gain.gain.setValueAtTime(0.25, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.3);
+                } else if (type === 'win') {
+                    var notes = [523.25, 659.25, 783.99, 1046.50];
+                    for (var i = 0; i < notes.length; i++) {
+                        var osc = ctx.createOscillator();
+                        var gain = ctx.createGain();
+                        osc.type = 'triangle';
+                        osc.frequency.setValueAtTime(notes[i], now + i * 0.08);
+                        gain.gain.setValueAtTime(0.3, now + i * 0.08);
+                        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.08 + 0.25);
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start(now + i * 0.08);
+                        osc.stop(now + i * 0.08 + 0.25);
+                    }
+                }
+            } catch (e) {}
+        }
+
+        function showModal(title, msg) {
+            document.getElementById('modal-title').innerHTML = title;
+            document.getElementById('modal-msg').innerHTML = msg;
+            ClassUtil.add(document.getElementById('info-modal'), 'active');
+        }
+        function hideModal() {
+            ClassUtil.remove(document.getElementById('info-modal'), 'active');
+        }
+        bindEvent(document.getElementById('modal-btn-close'), 'click', hideModal);
+
+        /* ================= 页面路由与切换 ================= */
+        var currentPage = 'home';
+        function switchPage(pageName) {
+            currentPage = pageName;
+            var pages = ['home', 'grid', 'trans', 'practice'];
+            for (var i = 0; i < pages.length; i++) {
+                var p = pages[i];
+                var pEl = document.getElementById('page-' + p);
+                if (p === pageName) ClassUtil.add(pEl, 'active');
+                else ClassUtil.remove(pEl, 'active');
+            }
+
+            var homeBtn = document.getElementById('btn-back-home');
+            var indicator = document.getElementById('page-indicator');
+
+            if (pageName === 'home') {
+                homeBtn.style.display = 'none';
+                indicator.innerHTML = '小学数学 · 六年级上册';
+                drawHomeCircle();
+            } else {
+                homeBtn.style.display = 'inline-block';
+                if (pageName === 'grid') {
+                    indicator.innerHTML = '圆的面积 — 数格法与极限探究';
+                    resizeGridCanvas();
+                    drawGridCanvas();
+                } else if (pageName === 'trans') {
+                    indicator.innerHTML = '圆的面积公式推导 — “化曲为直”切拼实验';
+                    resizeCanvas1();
+                    drawDerivation();
+                } else if (pageName === 'practice') {
+                    indicator.innerHTML = '圆的面积 — 巩固拓展演练';
+                    renderSingleQuestion();
+                }
+            }
+        }
+
+        bindEvent(document.getElementById('btn-back-home'), 'click', function() { switchPage('home'); });
+        bindEvent(document.getElementById('btn-goto-grid'), 'click', function() { switchPage('grid'); });
+        bindEvent(document.getElementById('btn-goto-trans'), 'click', function() { switchPage('trans'); });
+        bindEvent(document.getElementById('btn-goto-practice'), 'click', function() { switchPage('practice'); });
+
+        /* ================= 首页圆绘制 ================= */
+        var homeCanvas = document.getElementById('canvas-home-circle');
+        var homeCtx = homeCanvas.getContext('2d');
+        function drawHomeCircle() {
+            homeCanvas.width = homeCanvas.clientWidth;
+            homeCanvas.height = homeCanvas.clientHeight;
+            var w = homeCanvas.width;
+            var h = homeCanvas.height;
+            homeCtx.clearRect(0, 0, w, h);
+
+            var cx = w / 2;
+            var cy = h / 2;
+            var r = Math.min(w, h) * 0.38;
+
+            homeCtx.beginPath();
+            homeCtx.arc(cx, cy, r, 0, Math.PI * 2);
+            homeCtx.fillStyle = '#e0f2fe';
+            homeCtx.fill();
+            homeCtx.strokeStyle = '#0284c7';
+            homeCtx.lineWidth = 4;
+            homeCtx.stroke();
+
+            homeCtx.beginPath();
+            homeCtx.moveTo(cx, cy);
+            homeCtx.lineTo(cx + r, cy);
+            homeCtx.strokeStyle = '#ea580c';
+            homeCtx.lineWidth = 3;
+            homeCtx.stroke();
+
+            homeCtx.beginPath();
+            homeCtx.arc(cx, cy, 6, 0, Math.PI * 2);
+            homeCtx.fillStyle = '#ea580c';
+            homeCtx.fill();
+
+            homeCtx.font = 'bold 22px sans-serif';
+            homeCtx.fillStyle = '#ea580c';
+            homeCtx.fillText('O', cx - 22, cy + 8);
+            homeCtx.fillText('r', cx + r * 0.5, cy - 10);
+        }
+
+        /* ================= 1. 数格法与极限探究 ================= */
+        var gridCanvas = document.getElementById('canvas-grid');
+        var gridCtx = gridCanvas.getContext('2d');
+        var showGridLines = false;
+        var gridViewMode = 'full';
+        var gridHighlightMode = 'none';
+        
+        var currentGridLevel = '1cm'; 
+        var gridConfig = {
+            '1cm': { n: 10, unit: '1 cm', unitArea: 1.0, title: '1 cm 方格 (初探)' },
+            '5mm': { n: 20, unit: '5 mm (0.5cm)', unitArea: 0.25, title: '5 mm 方格 (更细)' },
+            '1mm': { n: 100, unit: '1 mm (0.1cm)', unitArea: 0.01, title: '1 mm 方格 (极细)' }
+        };
+
+        function getCellTypeCustom(x, y, N) {
+            var d1 = Math.sqrt(x * x + y * y);
+            var d2 = Math.sqrt((x + 1) * (x + 1) + y * y);
+            var d3 = Math.sqrt(x * x + (y + 1) * (y + 1));
+            var d4 = Math.sqrt((x + 1) * (x + 1) + (y + 1) * (y + 1));
+            var maxD = Math.max(d1, d2, d3, d4);
+            var minD = Math.min(d1, d2, d3, d4);
+
+            if (maxD <= N) return 'full';
+            if (minD < N) return 'half';
+            return 'out';
+        }
+
+        function calculateGridCounts(N) {
+            var fullCnt = 0;
+            var halfCnt = 0;
+            for (var x = 0; x < N; x++) {
+                for (var y = 0; y < N; y++) {
+                    var t = getCellTypeCustom(x, y, N);
+                    if (t === 'full') fullCnt++;
+                    else if (t === 'half') halfCnt++;
+                }
+            }
+            return { full: fullCnt, half: halfCnt };
+        }
+
+        function resizeGridCanvas() {
+            gridCanvas.width = gridCanvas.clientWidth;
+            gridCanvas.height = gridCanvas.clientHeight;
+        }
+
+        function drawGridCanvas() {
+            var w = gridCanvas.width;
+            var h = gridCanvas.height;
+            gridCtx.clearRect(0, 0, w, h);
+
+            gridCtx.save();
+            var conf = gridConfig[currentGridLevel];
+            var N = conf.n;
+
+            var gridStrokeColor = (N === 10) ? '#64748b' : ((N === 20) ? '#64748b' : 'rgba(71, 85, 105, 0.7)');
+            var gridLineWidth = (N === 10) ? 1.5 : ((N === 20) ? 1.2 : 0.8);
+
+            if (gridViewMode === 'full') {
+                var margin = 35;
+                var gridSize = Math.min(w - margin * 2, h - margin * 2);
+                var step = gridSize / (2 * N);
+                var cx = w / 2;
+                var cy = h / 2;
+                var pixelR = N * step;
+
+                if (!showGridLines) {
+                    gridCtx.beginPath();
+                    gridCtx.arc(cx, cy, pixelR, 0, Math.PI * 2);
+                    gridCtx.fillStyle = '#f0f9ff';
+                    gridCtx.fill();
+                    gridCtx.strokeStyle = '#0284c7';
+                    gridCtx.lineWidth = 3.5;
+                    gridCtx.stroke();
+
+                    gridCtx.beginPath();
+                    gridCtx.moveTo(cx, cy);
+                    gridCtx.lineTo(cx + pixelR, cy);
+                    gridCtx.strokeStyle = '#ea580c';
+                    gridCtx.lineWidth = 2.5;
+                    gridCtx.stroke();
+
+                    gridCtx.beginPath();
+                    gridCtx.arc(cx, cy, 5, 0, Math.PI * 2);
+                    gridCtx.fillStyle = '#ea580c';
+                    gridCtx.fill();
+
+                    gridCtx.font = 'bold 17px sans-serif';
+                    gridCtx.fillStyle = '#ea580c';
+                    gridCtx.fillText('O (圆心)', cx - 65, cy - 8);
+                    gridCtx.fillText('r = 10 cm', cx + pixelR * 0.35, cy - 8);
+
+                } else {
+                    if (N <= 20) {
+                        for (var i = -N; i < N; i++) {
+                            for (var j = -N; j < N; j++) {
+                                var absX = (i >= 0) ? i : (-i - 1);
+                                var absY = (j >= 0) ? j : (-j - 1);
+                                var type = getCellTypeCustom(absX, absY, N);
+                                var cellX = cx + i * step;
+                                var cellY = cy - (j + 1) * step;
+
+                                if (type === 'full') {
+                                    if (gridHighlightMode === 'all' || gridHighlightMode === 'fullGrid') {
+                                        gridCtx.fillStyle = '#fef08a';
+                                        gridCtx.fillRect(cellX, cellY, step, step);
+                                    }
+                                } else if (type === 'half') {
+                                    if (gridHighlightMode === 'all' || gridHighlightMode === 'halfGrid') {
+                                        gridCtx.fillStyle = '#fed7aa';
+                                        gridCtx.fillRect(cellX, cellY, step, step);
+                                    }
+                                }
+
+                                gridCtx.strokeStyle = gridStrokeColor;
+                                gridCtx.lineWidth = gridLineWidth;
+                                gridCtx.strokeRect(cellX, cellY, step, step);
+                            }
+                        }
+                    } else {
+                        if (gridHighlightMode === 'all' || gridHighlightMode === 'fullGrid') {
+                            gridCtx.beginPath();
+                            gridCtx.arc(cx, cy, pixelR - 1, 0, Math.PI * 2);
+                            gridCtx.fillStyle = '#fef08a';
+                            gridCtx.fill();
+                        }
+                        gridCtx.strokeStyle = gridStrokeColor;
+                        gridCtx.lineWidth = gridLineWidth;
+                        for (var g = -N; g <= N; g += 2) {
+                            var linePos = cx + g * step;
+                            gridCtx.beginPath();
+                            gridCtx.moveTo(linePos, cy - pixelR);
+                            gridCtx.lineTo(linePos, cy + pixelR);
+                            gridCtx.stroke();
+
+                            linePos = cy + g * step;
+                            gridCtx.beginPath();
+                            gridCtx.moveTo(cx - pixelR, linePos);
+                            gridCtx.lineTo(cx + pixelR, linePos);
+                            gridCtx.stroke();
+                        }
+                    }
+
+                    // 圆轮廓与十字轴
+                    gridCtx.beginPath();
+                    gridCtx.arc(cx, cy, pixelR, 0, Math.PI * 2);
+                    gridCtx.strokeStyle = '#0284c7';
+                    gridCtx.lineWidth = 3.5;
+                    gridCtx.stroke();
+
+                    gridCtx.beginPath();
+                    gridCtx.moveTo(cx - pixelR, cy);
+                    gridCtx.lineTo(cx + pixelR, cy);
+                    gridCtx.moveTo(cx, cy - pixelR);
+                    gridCtx.lineTo(cx, cy + pixelR);
+                    gridCtx.strokeStyle = '#1e293b';
+                    gridCtx.lineWidth = 2.0;
+                    gridCtx.stroke();
+
+                    gridCtx.beginPath();
+                    gridCtx.arc(cx, cy, 5, 0, Math.PI * 2);
+                    gridCtx.fillStyle = '#ea580c';
+                    gridCtx.fill();
+
+                    gridCtx.font = 'bold 16px sans-serif';
+                    gridCtx.fillStyle = '#0f172a';
+                    gridCtx.fillText('O', cx - 18, cy + 18);
+                    gridCtx.fillText('r = 10 cm (' + conf.unit + ')', cx + pixelR * 0.2, cy - 8);
+                }
+
+            } else {
+                // 1/4 圆特写视角
+                var margin = 45;
+                var size = Math.min(w - margin * 2, h - margin * 2);
+                var step = size / N;
+                var ox = margin + 10;
+                var oy = h - margin;
+
+                if (N <= 20) {
+                    for (var i = 0; i < N; i++) {
+                        for (var j = 0; j < N; j++) {
+                            var type = getCellTypeCustom(i, j, N);
+                            var cellX = ox + i * step;
+                            var cellY = oy - (j + 1) * step;
+
+                            if (type === 'full') {
+                                if (gridHighlightMode === 'all' || gridHighlightMode === 'fullGrid') {
+                                    gridCtx.fillStyle = '#fef08a';
+                                    gridCtx.fillRect(cellX, cellY, step, step);
+                                }
+                            } else if (type === 'half') {
+                                if (gridHighlightMode === 'all' || gridHighlightMode === 'halfGrid') {
+                                    gridCtx.fillStyle = '#fed7aa';
+                                    gridCtx.fillRect(cellX, cellY, step, step);
+                                }
+                            }
+
+                            gridCtx.strokeStyle = gridStrokeColor;
+                            gridCtx.lineWidth = gridLineWidth;
+                            gridCtx.strokeRect(cellX, cellY, step, step);
+                        }
+                    }
+                } else {
+                    if (gridHighlightMode === 'all' || gridHighlightMode === 'fullGrid') {
+                        gridCtx.beginPath();
+                        gridCtx.moveTo(ox, oy);
+                        gridCtx.arc(ox, oy, N * step, -Math.PI / 2, 0, false);
+                        gridCtx.closePath();
+                        gridCtx.fillStyle = '#fef08a';
+                        gridCtx.fill();
+                    }
+                    gridCtx.strokeStyle = gridStrokeColor;
+                    gridCtx.lineWidth = gridLineWidth;
+                    for (var k = 0; k <= N; k += 2) {
+                        gridCtx.beginPath();
+                        gridCtx.moveTo(ox + k * step, oy);
+                        gridCtx.lineTo(ox + k * step, oy - N * step);
+                        gridCtx.stroke();
+
+                        gridCtx.beginPath();
+                        gridCtx.moveTo(ox, oy - k * step);
+                        gridCtx.lineTo(ox + N * step, oy - k * step);
+                        gridCtx.stroke();
+                    }
+                }
+
+                // 1/4 圆弧
+                gridCtx.beginPath();
+                gridCtx.arc(ox, oy, N * step, -Math.PI / 2, 0, false);
+                gridCtx.strokeStyle = '#0284c7';
+                gridCtx.lineWidth = 4;
+                gridCtx.stroke();
+
+                gridCtx.beginPath();
+                gridCtx.moveTo(ox, oy);
+                gridCtx.lineTo(ox + N * step, oy);
+                gridCtx.moveTo(ox, oy);
+                gridCtx.lineTo(ox, oy - N * step);
+                gridCtx.strokeStyle = '#1e293b';
+                gridCtx.lineWidth = 3.2;
+                gridCtx.stroke();
+
+                gridCtx.beginPath();
+                gridCtx.arc(ox, oy, 5, 0, Math.PI * 2);
+                gridCtx.fillStyle = '#ea580c';
+                gridCtx.fill();
+
+                gridCtx.font = 'bold 17px sans-serif';
+                gridCtx.fillStyle = '#0f172a';
+                gridCtx.fillText('O (圆心)', ox - 35, oy + 26);
+                gridCtx.fillText('r = 10 cm (' + conf.unit + ')', ox + 3 * step, oy + 26);
+            }
+
+            gridCtx.restore();
+        }
+
+        // 清空右侧答案面板（重置为待测状态）
+        function clearStatResults() {
+            document.getElementById('stat-full-count').innerHTML = '--';
+            document.getElementById('stat-half-count').innerHTML = '--';
+            document.getElementById('stat-quarter-area').innerHTML = '--';
+            document.getElementById('stat-total-area').innerHTML = '--';
+            document.getElementById('stat-ratio').innerHTML = '--';
+            document.getElementById('stat-error-val').innerHTML = '--';
+        }
+
+        // 仅在主动触发时计算并揭晓答案
+        function revealLimitCalculations() {
+            var conf = gridConfig[currentGridLevel];
+            var counts = calculateGridCounts(conf.n);
+            
+            var uArea = conf.unitArea;
+            var quarterArea = (counts.full + counts.half / 2.0) * uArea;
+            var totalArea = quarterArea * 4.0;
+            var ratio = (totalArea / 100.0).toFixed(3);
+            var trueArea = Math.PI * 100.0;
+            var diff = Math.abs(totalArea - trueArea).toFixed(2);
+
+            document.getElementById('stat-full-count').innerHTML = counts.full;
+            document.getElementById('stat-half-count').innerHTML = counts.half;
+            document.getElementById('stat-quarter-area').innerHTML = quarterArea.toFixed(2);
+            document.getElementById('stat-total-area').innerHTML = totalArea.toFixed(2);
+            document.getElementById('stat-ratio').innerHTML = ratio;
+            document.getElementById('stat-error-val').innerHTML = '±' + diff + ' cm²';
+
+            var insightText = document.getElementById('limit-insight-text');
+            if (currentGridLevel === '1cm') {
+                insightText.innerHTML = '<strong>1 cm 方格（教材标准）：</strong>边缘锯齿明显，估算面积为 310 cm²，与实际误差较大（约 4.16 cm²）。';
+            } else if (currentGridLevel === '5mm') {
+                insightText.innerHTML = '<strong>5 mm 方格（细分一倍）：</strong>锯齿缩小，估算面积约为 313.5 cm²，更加逼近真实面积（误差仅约 0.66 cm²）！';
+            } else if (currentGridLevel === '1mm') {
+                insightText.innerHTML = '<strong>1 mm 方格（极限细密）：</strong>方格微元化，边缘锯齿几乎消失，估算面积约为 314.1 cm²，倍数精确收敛到 3.141！';
+            }
+
+            document.getElementById('stat-view-indicator').innerHTML = '【已揭晓】' + conf.title + ' 计算结果';
+            playSound('correct');
+        }
+
+        // 绑定揭晓答案按键
+        bindEvent(document.getElementById('btn-reveal-result'), 'click', function() {
+            showGridLines = true;
+            document.getElementById('btn-toggle-grid-lines').innerHTML = '隐藏方格网';
+            ClassUtil.add(document.getElementById('btn-toggle-grid-lines'), 'active');
+            gridHighlightMode = 'all';
+            revealLimitCalculations();
+            drawGridCanvas();
+        });
+
+        // 切换极限精度阶段（只切网格，不自动显示答案）
+        function switchLimitLevel(levelKey) {
+            currentGridLevel = levelKey;
+            var keys = ['1cm', '5mm', '1mm'];
+            for (var i = 0; i < keys.length; i++) {
+                var btn = document.getElementById('btn-grid-' + keys[i]);
+                if (keys[i] === levelKey) ClassUtil.add(btn, 'active');
+                else ClassUtil.remove(btn, 'active');
+            }
+
+            // 切换网格
+            showGridLines = true;
+            document.getElementById('btn-toggle-grid-lines').innerHTML = '隐藏方格网';
+            ClassUtil.add(document.getElementById('btn-toggle-grid-lines'), 'active');
+            gridHighlightMode = 'none';
+
+            // 清空答案，等待教师主动点击揭晓
+            clearStatResults();
+            document.getElementById('stat-view-indicator').innerHTML = '已切换至 ' + gridConfig[levelKey].title + '（待揭晓答案）';
+            
+            var insightText = document.getElementById('limit-insight-text');
+            if (levelKey === '1cm') {
+                insightText.innerHTML = '当前格长：<strong>1 cm</strong>。边缘锯齿较粗，请引导学生思考数法。';
+            } else if (levelKey === '5mm') {
+                insightText.innerHTML = '当前格长：<strong>5 mm</strong>。网格变密了，圆周边缘的锯齿明显变小了！点击揭晓看精度。';
+            } else if (levelKey === '1mm') {
+                insightText.innerHTML = '当前格长：<strong>1 mm</strong>。网格极度细密，边缘几乎贴合圆弧！点击揭晓见证极限收敛。';
+            }
+
+            drawGridCanvas();
+        }
+
+        bindEvent(document.getElementById('btn-grid-1cm'), 'click', function() { switchLimitLevel('1cm'); });
+        bindEvent(document.getElementById('btn-grid-5mm'), 'click', function() { switchLimitLevel('5mm'); });
+        bindEvent(document.getElementById('btn-grid-1mm'), 'click', function() { switchLimitLevel('1mm'); });
+
+        // 铺设 / 隐藏方格网（不显示答案）
+        bindEvent(document.getElementById('btn-toggle-grid-lines'), 'click', function() {
+            showGridLines = !showGridLines;
+            if (showGridLines) {
+                this.innerHTML = '隐藏方格网';
+                ClassUtil.add(this, 'active');
+                document.getElementById('grid-desc-text').innerHTML = '方格网已铺设（当前：' + gridConfig[currentGridLevel].unit + '）。整圆方格较多，数起来容易眼花。<br>💡 <strong>思考：</strong>圆是对称图形，我们可<strong>先数 1/4 圆</strong>！';
+                document.getElementById('stat-view-indicator').innerHTML = '当前状态：已铺设方格网 (' + gridConfig[currentGridLevel].title + ')';
+                clearStatResults();
+            } else {
+                this.innerHTML = '铺设方格网';
+                ClassUtil.remove(this, 'active');
+                gridHighlightMode = 'none';
+                document.getElementById('grid-desc-text').innerHTML = '这是一个半径为 10 cm 的圆。怎样求这个圆的面积呢？<br>点击下方<strong>【铺设方格网】</strong>开始探索！';
+                document.getElementById('stat-view-indicator').innerHTML = '当前状态：请先铺设方格网';
+                clearStatResults();
+            }
+            drawGridCanvas();
+        });
+
+        // 整圆 / 1/4 圆切换（不显示答案）
+        bindEvent(document.getElementById('btn-toggle-grid-view'), 'click', function() {
+            if (gridViewMode === 'full') {
+                gridViewMode = 'quarter';
+                this.innerHTML = '返回整圆全景';
+                showGridLines = true;
+                document.getElementById('btn-toggle-grid-lines').innerHTML = '隐藏方格网';
+                ClassUtil.add(document.getElementById('btn-toggle-grid-lines'), 'active');
+                document.getElementById('grid-desc-text').innerHTML = '当前为<strong>【1/4 圆特写视角】</strong>。<br>数出 1 份的面积乘 4，即是整圆面积！';
+                document.getElementById('stat-view-indicator').innerHTML = '当前统计区域：1/4 圆 (特写)';
+            } else {
+                gridViewMode = 'full';
+                this.innerHTML = '聚焦到 1/4 圆';
+                document.getElementById('grid-desc-text').innerHTML = '当前已返回<strong>【整圆全景视角】</strong>。<br>先数 1/4 圆再乘 4，可以化繁为简！';
+                document.getElementById('stat-view-indicator').innerHTML = '当前统计区域：整圆全景';
+            }
+            clearStatResults();
+            drawGridCanvas();
+        });
+
+        bindEvent(document.getElementById('btn-show-full-grid'), 'click', function() {
+            showGridLines = true;
+            document.getElementById('btn-toggle-grid-lines').innerHTML = '隐藏方格网';
+            ClassUtil.add(document.getElementById('btn-toggle-grid-lines'), 'active');
+            gridHighlightMode = 'fullGrid';
+            drawGridCanvas();
+        });
+
+        bindEvent(document.getElementById('btn-show-half-grid'), 'click', function() {
+            showGridLines = true;
+            document.getElementById('btn-toggle-grid-lines').innerHTML = '隐藏方格网';
+            ClassUtil.add(document.getElementById('btn-toggle-grid-lines'), 'active');
+            gridHighlightMode = 'halfGrid';
+            drawGridCanvas();
+        });
+
+        // 底部一键统计与计算也可以揭晓答案
+        bindEvent(document.getElementById('btn-calc-grid'), 'click', function() {
+            showGridLines = true;
+            document.getElementById('btn-toggle-grid-lines').innerHTML = '隐藏方格网';
+            ClassUtil.add(document.getElementById('btn-toggle-grid-lines'), 'active');
+            gridHighlightMode = 'all';
+            revealLimitCalculations();
+            drawGridCanvas();
+        });
+
+        bindEvent(document.getElementById('btn-reset-grid'), 'click', function() {
+            showGridLines = false;
+            gridViewMode = 'full';
+            gridHighlightMode = 'none';
+            currentGridLevel = '1cm';
+            
+            var keys = ['1cm', '5mm', '1mm'];
+            for (var i = 0; i < keys.length; i++) {
+                var btn = document.getElementById('btn-grid-' + keys[i]);
+                if (keys[i] === '1cm') ClassUtil.add(btn, 'active');
+                else ClassUtil.remove(btn, 'active');
+            }
+
+            document.getElementById('btn-toggle-grid-lines').innerHTML = '铺设方格网';
+            ClassUtil.remove(document.getElementById('btn-toggle-grid-lines'), 'active');
+            document.getElementById('btn-toggle-grid-view').innerHTML = '聚焦到 1/4 圆';
+            document.getElementById('grid-desc-text').innerHTML = '这是一个半径为 10 cm 的圆。怎样求这个圆的面积呢？<br>点击下方<strong>【铺设方格网】</strong>开始探索！';
+            document.getElementById('stat-view-indicator').innerHTML = '当前状态：请先铺设方格网';
+            document.getElementById('limit-insight-text').innerHTML = '当前格长：<strong>1 cm</strong>。边缘锯齿较明显，请让学生先估算或数一数。';
+
+            clearStatResults();
+            drawGridCanvas();
+        });
+
+        /* ================= 2. 转化法推导 ================= */
+        var canvas1 = document.getElementById('canvas-derivation');
+        var ctx1 = canvas1.getContext('2d');
+        var currentSlices = 16;
+        var currentRadiusCm = 5.0;
+        var transformProgress = 0;
+        var infoCardVisible = false;
+        var animTimer = null;
+        var measureTransferProgress = 0;
+        var measureTransferTimer = null;
+        var measureTransferVisible = false;
+
+        function resizeCanvas1() {
+            var container = document.getElementById('container-1');
+            if (container) {
+                canvas1.width = container.clientWidth;
+                canvas1.height = container.clientHeight;
+            }
+        }
+
+        function getPixelRadius(w, h, rCm) {
+            var baseMaxRadius = Math.min(w, h) * 0.26;
+            return (rCm / 10.0) * baseMaxRadius;
+        }
+
+        function drawSectorPiece(ctx, radius, angleStep, color) {
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.arc(0, 0, radius, -angleStep / 2, angleStep / 2);
+            ctx.closePath();
+            ctx.fillStyle = color;
+            ctx.fill();
+            // Cover antialias seams with the sector's own color.
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 0.8;
+            ctx.lineJoin = 'round';
+            ctx.stroke();
+        }
+
+        function interpolateAngle(a1, a2, factor) {
+            var diff = a2 - a1;
+            while (diff > Math.PI) diff -= Math.PI * 2;
+            while (diff < -Math.PI) diff += Math.PI * 2;
+            return a1 + diff * factor;
+        }
+
+        function drawCompleteCircle(ctx, cx, cy, radius, labelText) {
+            ctx.beginPath();
+            ctx.arc(cx, cy, radius, -Math.PI, 0);
+            ctx.closePath();
+            ctx.fillStyle = '#0284c7';
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(cx, cy, radius, 0, Math.PI);
+            ctx.closePath();
+            ctx.fillStyle = '#ea580c';
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+            ctx.strokeStyle = '#0284c7';
+            ctx.lineWidth = 2.5;
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(cx, cy);
+            ctx.lineTo(cx + radius, cy);
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 2.5;
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(cx, cy, 4, 0, Math.PI * 2);
+            ctx.fillStyle = '#ffffff';
+            ctx.fill();
+
+            ctx.font = 'bold 16px sans-serif';
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText('r=' + currentRadiusCm + 'cm', cx + radius * 0.25, cy - 8);
+
+            if (labelText) {
+                ctx.font = 'bold 18px sans-serif';
+                ctx.fillStyle = '#0f172a';
+                ctx.fillText(labelText, cx - 36, cy + radius + 28);
+            }
+        }
+
+        function getSectorAssemblyGeometry(sliceCount, radius, rightCx, cy) {
+            var angleStep = (2 * Math.PI) / sliceCount;
+            var halfCount = Math.floor(sliceCount / 2);
+            var sliceWidth = 2 * radius * Math.sin(angleStep / 2);
+            var pieceHeight = radius * Math.cos(angleStep / 2);
+            var assembledLength = halfCount * sliceWidth;
+
+            return {
+                angleStep: angleStep,
+                sliceWidth: sliceWidth,
+                pieceHeight: pieceHeight,
+                assembledLength: assembledLength,
+                startX: rightCx - assembledLength / 2,
+                topY: cy - pieceHeight / 2,
+                bottomY: cy + pieceHeight / 2
+            };
+        }
+
+        function getMeasureTransferState(progress, geometry) {
+            var clamped = Math.max(0, Math.min(1, progress));
+            var circumferenceProgress = Math.min(clamped / 0.55, 1);
+            var radiusProgress = Math.max(0, Math.min((clamped - 0.55) / 0.45, 1));
+            var circumferenceTargetY = geometry.rectY + geometry.rectH;
+
+            return {
+                phase: clamped < 0.55 ? 'circumference' : 'radius',
+                complete: clamped >= 1,
+                circumference: {
+                    localProgress: circumferenceProgress,
+                    source: { cx: geometry.leftCx, cy: geometry.cy, radius: geometry.radius },
+                    target: {
+                        x1: geometry.rectX,
+                        y1: circumferenceTargetY,
+                        x2: geometry.rectX + geometry.rectW,
+                        y2: circumferenceTargetY
+                    }
+                },
+                radius: {
+                    localProgress: radiusProgress,
+                    source: { x1: geometry.leftCx, y1: geometry.cy, x2: geometry.leftCx + geometry.radius, y2: geometry.cy },
+                    target: { x1: geometry.rectX, y1: geometry.rectY, x2: geometry.rectX, y2: geometry.rectY + geometry.rectH }
+                }
+            };
+        }
+
+        function completeMeasureTransfer() {
+            measureTransferProgress = 1;
+            measureTransferVisible = true;
+            infoCardVisible = true;
+            if (measureTransferTimer) clearInterval(measureTransferTimer);
+            measureTransferTimer = null;
+            ClassUtil.remove(document.getElementById('derivation-info-card'), 'hidden');
+            updateDerivationStep(4);
+            document.getElementById('derivation-status').innerHTML = '圆周长的一半对应长 πr，半径对应宽 r。';
+            drawDerivation();
+        }
+
+        function startMeasureTransferAnimation() {
+            if (measureTransferTimer) clearInterval(measureTransferTimer);
+            measureTransferProgress = 0;
+            measureTransferVisible = true;
+            infoCardVisible = false;
+            ClassUtil.add(document.getElementById('derivation-info-card'), 'hidden');
+            document.getElementById('derivation-status').innerHTML = '正在演示：圆周长的一半对应长，半径对应宽。';
+
+            measureTransferTimer = setInterval(function() {
+                measureTransferProgress += 0.008;
+                if (measureTransferProgress >= 1) {
+                    completeMeasureTransfer();
+                    return;
+                }
+                drawDerivation();
+            }, 20);
+        }
+
+        function resetMeasureTransfer() {
+            if (measureTransferTimer) clearInterval(measureTransferTimer);
+            measureTransferTimer = null;
+            measureTransferProgress = 0;
+            measureTransferVisible = false;
+            infoCardVisible = false;
+            ClassUtil.add(document.getElementById('derivation-info-card'), 'hidden');
+        }
+
+        function drawMeasureTransfer(ctx, geometry) {
+            var state = getMeasureTransferState(measureTransferProgress, geometry);
+            var circumference = state.circumference;
+            var radiusState = state.radius;
+
+            function ease(v) { return v < 0.5 ? 2 * v * v : 1 - Math.pow(-2 * v + 2, 2) / 2; }
+            function lerp(from, to, amount) { return from + (to - from) * amount; }
+
+            ctx.save();
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+
+            var circumferenceEase = ease(circumference.localProgress);
+            var sourceLeftX = geometry.leftCx - geometry.radius;
+            var sourceRightX = geometry.leftCx + geometry.radius;
+            var sourceY = geometry.cy;
+            var sourceControlX = geometry.leftCx;
+            var sourceControlY = geometry.cy - geometry.radius * 1.35;
+            var targetMidX = (circumference.target.x1 + circumference.target.x2) / 2;
+            var targetMidY = circumference.target.y1;
+
+            var halfCVal = (Math.PI * currentRadiusCm).toFixed(2);
+
+            ctx.strokeStyle = 'rgba(245, 158, 11, ' + (0.95 - circumferenceEase * 0.55) + ')';
+            ctx.lineWidth = 7;
+            ctx.beginPath();
+            ctx.arc(geometry.leftCx, geometry.cy, geometry.radius + 4, Math.PI, Math.PI * 2);
+            ctx.stroke();
+
+            var movingLeftX = lerp(sourceLeftX, circumference.target.x1, circumferenceEase);
+            var movingLeftY = lerp(sourceY, circumference.target.y1, circumferenceEase);
+            var movingRightX = lerp(sourceRightX, circumference.target.x2, circumferenceEase);
+            var movingRightY = lerp(sourceY, circumference.target.y2, circumferenceEase);
+            var movingControlX = lerp(sourceControlX, targetMidX, circumferenceEase);
+            var movingControlY = lerp(sourceControlY, targetMidY, circumferenceEase);
+
+            ctx.strokeStyle = '#f59e0b';
+            ctx.lineWidth = 6;
+            ctx.beginPath();
+            ctx.moveTo(movingLeftX, movingLeftY);
+            ctx.quadraticCurveTo(movingControlX, movingControlY, movingRightX, movingRightY);
+            ctx.stroke();
+
+            ctx.fillStyle = '#b45309';
+            ctx.font = 'bold 16px sans-serif';
+            if (circumference.localProgress < 0.82) {
+                ctx.fillText('半周长 πr ≈ ' + halfCVal + 'cm', movingControlX - 70, movingControlY - 10);
+            } else {
+                ctx.fillText('长 a ≈ πr (' + halfCVal + 'cm)', targetMidX - 70, circumference.target.y1 + 26);
+            }
+
+            if (circumference.localProgress >= 1) {
+                ctx.strokeStyle = '#f59e0b';
+                ctx.lineWidth = 6;
+                ctx.beginPath();
+                ctx.moveTo(circumference.target.x1, circumference.target.y1);
+                ctx.lineTo(circumference.target.x2, circumference.target.y2);
+                ctx.stroke();
+            }
+
+            if (state.phase === 'radius' || state.complete) {
+                var radiusEase = ease(radiusState.localProgress);
+                ctx.strokeStyle = 'rgba(22, 163, 74, ' + (0.95 - radiusEase * 0.55) + ')';
+                ctx.lineWidth = 6;
+                ctx.beginPath();
+                ctx.moveTo(radiusState.source.x1, radiusState.source.y1);
+                ctx.lineTo(radiusState.source.x2, radiusState.source.y2);
+                ctx.stroke();
+
+                var movingRadiusX1 = lerp(radiusState.source.x1, radiusState.target.x1, radiusEase);
+                var movingRadiusY1 = lerp(radiusState.source.y1, radiusState.target.y1, radiusEase);
+                var movingRadiusX2 = lerp(radiusState.source.x2, radiusState.target.x2, radiusEase);
+                var movingRadiusY2 = lerp(radiusState.source.y2, radiusState.target.y2, radiusEase);
+
+                ctx.strokeStyle = '#16a34a';
+                ctx.lineWidth = 6;
+                ctx.beginPath();
+                ctx.moveTo(movingRadiusX1, movingRadiusY1);
+                ctx.lineTo(movingRadiusX2, movingRadiusY2);
+                ctx.stroke();
+
+                var radiusLabelX = (movingRadiusX1 + movingRadiusX2) / 2;
+                var radiusLabelY = (movingRadiusY1 + movingRadiusY2) / 2;
+                ctx.fillStyle = '#15803d';
+                if (radiusState.localProgress < 0.82) {
+                    ctx.fillText('半径 r = ' + currentRadiusCm + 'cm', radiusLabelX + 10, radiusLabelY - 8);
+                } else {
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.92)';
+                    ctx.fillRect(radiusState.target.x1 + 6, geometry.rectY + geometry.rectH * 0.5 - 14, 110, 26);
+                    ctx.fillStyle = '#15803d';
+                    ctx.fillText('宽 b = r (' + currentRadiusCm + 'cm)', radiusState.target.x1 + 10, geometry.rectY + geometry.rectH * 0.5 + 4);
+                }
+            }
+
+            ctx.restore();
+        }
+
+        function updateCardCalculations() {
+            var r = parseFloat(currentRadiusCm);
+            var halfC = (Math.PI * r).toFixed(2);
+            var area = (Math.PI * r * r).toFixed(2);
+            document.getElementById('txt-card-r').innerHTML = r;
+            document.getElementById('txt-card-b').innerHTML = r;
+            document.getElementById('txt-card-half-c').innerHTML = halfC;
+            document.getElementById('txt-card-area').innerHTML = area;
+        }
+
+        function drawDerivation() {
+            if (!ctx1) return;
+            var w = canvas1.width;
+            var h = canvas1.height;
+            ctx1.clearRect(0, 0, w, h);
+
+            var radius = getPixelRadius(w, h, currentRadiusCm);
+            var leftCx = w * 0.22;
+            var rightCx = w * 0.68;
+            var cy = h * 0.45;
+
+            ctx1.save();
+
+            drawCompleteCircle(ctx1, leftCx, cy, radius, '原始圆形');
+
+            var N = currentSlices;
+            var M = Math.floor(N / 2);
+            var assembly = getSectorAssemblyGeometry(N, radius, rightCx, cy);
+            var angleStep = assembly.angleStep;
+            var sliceWidth = assembly.sliceWidth;
+            var p = transformProgress;
+
+            var p1 = Math.min(p / 0.5, 1.0);
+            var p2 = Math.max((p - 0.5) / 0.5, 0.0);
+
+            var finalStartX = assembly.startX;
+            var finalTopY = assembly.topY;
+            var finalBottomY = assembly.bottomY;
+            var derivationGeometry = {
+                leftCx: leftCx,
+                cy: cy,
+                radius: radius,
+                rectX: finalStartX,
+                rectY: finalTopY,
+                rectW: assembly.assembledLength,
+                rectH: assembly.pieceHeight
+            };
+
+            var unfoldTopY = cy - radius * 0.45;
+            var unfoldBottomY = cy + radius * 0.45;
+
+            if (p === 0) {
+                drawCompleteCircle(ctx1, rightCx, cy, radius, '切拼对照');
+            } else {
+                for (var i = 0; i < N; i++) {
+                    var isTop = (i < M);
+                    var color = isTop ? '#0284c7' : '#ea580c';
+                    var initAngle, targetX, targetY, targetAngle, unfoldY;
+
+                    if (isTop) {
+                        initAngle = -Math.PI + (i + 0.5) * angleStep;
+                        targetX = finalStartX + (i + 0.5) * sliceWidth;
+                        unfoldY = unfoldTopY;
+                        targetY = finalBottomY;
+                        targetAngle = -Math.PI / 2;
+                    } else {
+                        var j = i - M;
+                        initAngle = (j + 0.5) * angleStep;
+                        targetX = finalStartX + j * sliceWidth;
+                        unfoldY = unfoldBottomY;
+                        targetY = finalTopY;
+                        targetAngle = Math.PI / 2;
+                    }
+
+                    var midX = rightCx + (targetX - rightCx) * p1;
+                    var midY = cy + (unfoldY - cy) * p1;
+                    var midAngle = interpolateAngle(initAngle, targetAngle, p1);
+
+                    var curX = midX;
+                    var curY = midY + (targetY - unfoldY) * p2;
+                    var curAngle = midAngle;
+
+                    ctx1.save();
+                    ctx1.translate(curX, curY);
+                    ctx1.rotate(curAngle);
+                    drawSectorPiece(ctx1, radius, angleStep, color);
+                    ctx1.restore();
+                }
+            }
+
+            if (infoCardVisible && p >= 0.95) {
+                var rectW = assembly.assembledLength;
+                var rectH = assembly.pieceHeight;
+                ctx1.strokeStyle = '#d97706';
+                ctx1.lineWidth = 2.5;
+                ctx1.setLineDash([6, 6]);
+                ctx1.strokeRect(finalStartX, finalTopY, rectW, rectH);
+                ctx1.setLineDash([]);
+            }
+
+            if (measureTransferVisible && p >= 0.95) {
+                drawMeasureTransfer(ctx1, derivationGeometry);
+            }
+
+            ctx1.restore();
+        }
+
+        function updateSliceButtonState(num) {
+            var choices = [8, 16, 32, 64, 96, 192, 384];
+            for (var i = 0; i < choices.length; i++) {
+                var button = document.getElementById('btn-slice-' + choices[i]);
+                var selected = choices[i] === num;
+                if (selected) ClassUtil.add(button, 'active');
+                else ClassUtil.remove(button, 'active');
+                button.setAttribute('aria-pressed', selected ? 'true' : 'false');
+            }
+        }
+
+        function updateDerivationStep(step) {
+            var ids = ['step-slice', 'step-unfold', 'step-combine', 'step-explain'];
+            var descriptions = [
+                '第 1 步：把圆平均分成若干份。',
+                '第 2 步：把扇形上下展开。',
+                '第 3 步：把扇形交错拼成近似长方形。',
+                '第 4 步：用长乘宽理解圆的面积公式。'
+            ];
+            for (var i = 0; i < ids.length; i++) {
+                var el = document.getElementById(ids[i]);
+                ClassUtil.remove(el, 'active');
+                ClassUtil.remove(el, 'completed');
+                if (i + 1 === step) ClassUtil.add(el, 'active');
+                else if (i + 1 < step) ClassUtil.add(el, 'completed');
+            }
+            document.getElementById('derivation-status').innerHTML = descriptions[step - 1];
+        }
+
+        function setSlices(num) {
+            if (!isFinite(num) || num < 4 || num > 384 || num % 2 !== 0) {
+                showModal("提示", "请输入 4 到 384 之间的偶数等份！");
+                return;
+            }
+            resetMeasureTransfer();
+            currentSlices = num;
+            document.getElementById('txt-slices').innerHTML = num;
+            var inputEl = document.getElementById('input-custom-slice');
+            if (inputEl) inputEl.value = num;
+            updateSliceButtonState(num);
+            updateDerivationStep(1);
+            transformProgress = 0;
+            drawDerivation();
+        }
+
+        function startTransformAnimation(targetProgress, onComplete) {
+            if (animTimer) clearInterval(animTimer);
+
+            if (transformProgress === targetProgress) {
+                drawDerivation();
+                if (onComplete) onComplete();
+                return;
+            }
+
+            animTimer = setInterval(function() {
+                if (transformProgress < targetProgress) {
+                    transformProgress += 0.03;
+                    if (transformProgress >= targetProgress) {
+                        transformProgress = targetProgress;
+                        clearInterval(animTimer);
+                        animTimer = null;
+                        drawDerivation();
+                        if (onComplete) onComplete();
+                        return;
+                    }
+                } else if (transformProgress > targetProgress) {
+                    transformProgress -= 0.03;
+                    if (transformProgress <= targetProgress) {
+                        transformProgress = targetProgress;
+                        clearInterval(animTimer);
+                        animTimer = null;
+                        drawDerivation();
+                        if (onComplete) onComplete();
+                        return;
+                    }
+                }
+                drawDerivation();
+            }, 20);
+        }
+
+        bindEvent(document.getElementById('slider-radius'), 'input', function() {
+            currentRadiusCm = parseFloat(this.value);
+            document.getElementById('lbl-radius-val').innerHTML = currentRadiusCm + ' cm';
+            updateCardCalculations();
+            drawDerivation();
+        });
+
+        bindEvent(document.getElementById('btn-slice-8'), 'click', function() { setSlices(8); });
+        bindEvent(document.getElementById('btn-slice-16'), 'click', function() { setSlices(16); });
+        bindEvent(document.getElementById('btn-slice-32'), 'click', function() { setSlices(32); });
+        bindEvent(document.getElementById('btn-slice-64'), 'click', function() { setSlices(64); });
+
+        bindEvent(document.getElementById('btn-slice-96'), 'click', function() { setSlices(96); });
+        bindEvent(document.getElementById('btn-slice-192'), 'click', function() { setSlices(192); });
+        bindEvent(document.getElementById('btn-slice-384'), 'click', function() { setSlices(384); });
+
+        bindEvent(document.getElementById('btn-set-custom-slice'), 'click', function() {
+            var val = parseInt(document.getElementById('input-custom-slice').value, 10);
+            if (!isNaN(val)) setSlices(val);
+        });
+
+        bindEvent(document.getElementById('input-custom-slice'), 'keydown', function(e) {
+            if (e.keyCode === 13 || e.key === 'Enter') {
+                var val = parseInt(this.value, 10);
+                if (!isNaN(val)) setSlices(val);
+            }
+        });
+
+        bindEvent(document.getElementById('btn-unfold'), 'click', function() {
+            resetMeasureTransfer();
+            updateDerivationStep(2);
+            startTransformAnimation(0.5);
+        });
+
+        bindEvent(document.getElementById('btn-combine'), 'click', function() {
+            resetMeasureTransfer();
+            updateDerivationStep(3);
+            startTransformAnimation(1.0);
+        });
+
+        bindEvent(document.getElementById('btn-reset-transform'), 'click', function() {
+            resetMeasureTransfer();
+            updateDerivationStep(1);
+            startTransformAnimation(0.0);
+        });
+
+        function handleToggleDerivationInfo() {
+            if (measureTransferVisible || measureTransferTimer || infoCardVisible) {
+                resetMeasureTransfer();
+                updateDerivationStep(transformProgress >= 0.95 ? 3 : (transformProgress >= 0.45 ? 2 : 1));
+                drawDerivation();
+                return;
+            }
+
+            if (transformProgress >= 0.95) {
+                startMeasureTransferAnimation();
+            } else {
+                updateDerivationStep(3);
+                startTransformAnimation(1.0, startMeasureTransferAnimation);
+            }
+        }
+        bindEvent(document.getElementById('btn-toggle-info'), 'click', handleToggleDerivationInfo);
+
+        bindEvent(document.getElementById('btn-sub-trans'), 'click', function() {
+            ClassUtil.add(this, 'active');
+            ClassUtil.remove(document.getElementById('btn-sub-table'), 'active');
+            ClassUtil.add(document.getElementById('sub-panel-trans'), 'active');
+            ClassUtil.remove(document.getElementById('sub-panel-table'), 'active');
+            document.getElementById('trans-control-bar').style.display = 'flex';
+            resizeCanvas1();
+            drawDerivation();
+        });
+        bindEvent(document.getElementById('btn-sub-table'), 'click', function() {
+            ClassUtil.add(this, 'active');
+            ClassUtil.remove(document.getElementById('btn-sub-trans'), 'active');
+            ClassUtil.add(document.getElementById('sub-panel-table'), 'active');
+            ClassUtil.remove(document.getElementById('sub-panel-trans'), 'active');
+            document.getElementById('trans-control-bar').style.display = 'none';
+        });
+
+        /* ================= 3. 练习与双人擂台 ================= */
+        bindEvent(document.getElementById('btn-sub-single'), 'click', function() {
+            ClassUtil.add(this, 'active');
+            ClassUtil.remove(document.getElementById('btn-sub-pk'), 'active');
+            ClassUtil.add(document.getElementById('sub-panel-single'), 'active');
+            ClassUtil.remove(document.getElementById('sub-panel-pk'), 'active');
+            document.getElementById('btn-next-single').style.display = singleAnswered ? 'inline-block' : 'none';
+            document.getElementById('btn-start-pk').style.display = 'none';
+        });
+        bindEvent(document.getElementById('btn-sub-pk'), 'click', function() {
+            ClassUtil.add(this, 'active');
+            ClassUtil.remove(document.getElementById('btn-sub-single'), 'active');
+            ClassUtil.add(document.getElementById('sub-panel-pk'), 'active');
+            ClassUtil.remove(document.getElementById('sub-panel-single'), 'active');
+            document.getElementById('btn-next-single').style.display = 'none';
+            document.getElementById('btn-start-pk').style.display = 'inline-block';
+            resetPKGame();
+        });
+
+        var singleQuestions = [
+            { q: "1. 已知圆的半径 r = 4 cm，这个圆的面积是多少平方厘米？", opts: ["50.24 cm²", "25.12 cm²", "12.56 cm²", "100.48 cm²"], ans: 0, exp: "S = πr² = 3.14 × 4² = 50.24 cm²。" },
+            { q: "2. 已知圆的直径 d = 6 cm，这个圆的面积是多少平方厘米？", opts: ["113.04 cm²", "28.26 cm²", "18.84 cm²", "37.68 cm²"], ans: 1, exp: "r = d ÷ 2 = 3 cm；S = 3.14 × 3² = 28.26 cm²。" },
+            { q: "3. 已知圆的周长 C = 18.84 cm，这个圆的面积是多少平方厘米？", opts: ["28.26 cm²", "18.84 cm²", "9.42 cm²", "56.52 cm²"], ans: 0, exp: "r = C ÷ 2π = 18.84 ÷ 6.28 = 3 cm；S = 3.14 × 3² = 28.26 cm²。" },
+            { q: "4. 外半径 R = 5 cm，内半径 r = 3 cm，圆环的面积是多少？", opts: ["50.24 cm²", "28.26 cm²", "78.50 cm²", "12.56 cm²"], ans: 0, exp: "S环 = π(R² - r²) = 3.14 × (25 - 9) = 50.24 cm²。" },
+            { q: "5. 若将圆的半径扩大到原来的 3 倍，它的面积会扩大到原来的几倍？", opts: ["3 倍", "6 倍", "9 倍", "27 倍"], ans: 2, exp: "圆面积与半径的平方成正比。半径扩大 3 倍，面积扩大 3² = 9 倍。" },
+            { q: "6. 一个圆的半径 r = 10 dm，它的面积是多少平方分米？", opts: ["31.4 dm²", "62.8 dm²", "314 dm²", "628 dm²"], ans: 2, exp: "S = 3.14 × 10² = 314 dm²。" },
+            { q: "7. 在边长 8 cm 的正方形内画一个最大的圆，这个圆的面积是多少？", opts: ["201.06 cm²", "50.24 cm²", "25.12 cm²", "16 cm²"], ans: 1, exp: "内切最大圆直径 d = 8 cm，r = 4 cm；S = 3.14 × 4² = 50.24 cm²。" },
+            { q: "8. 已知半圆的半径 r = 2 cm，这个半圆的面积是多少平方厘米？", opts: ["12.56 cm²", "6.28 cm²", "3.14 cm²", "4.00 cm²"], ans: 1, exp: "半圆面积 = πr² ÷ 2 = (3.14 × 4) ÷ 2 = 6.28 cm²。" }
+        ];
+
+        var singleCurIndex = 0;
+        var singleScore = 0;
+        var singleStreak = 0;
+        var singleMaxStreak = 0;
+        var singleAnswered = false;
+
+        function renderSingleQuestion() {
+            singleAnswered = false;
+            var qObj = singleQuestions[singleCurIndex];
+            document.getElementById('single-q-index').innerHTML = singleCurIndex + 1;
+            document.getElementById('single-q-total').innerHTML = singleQuestions.length;
+            document.getElementById('single-q-card').innerHTML = qObj.q;
+
+            var optContainer = document.getElementById('single-opt-grid');
+            optContainer.innerHTML = '';
+            var expBox = document.getElementById('single-exp-box');
+            ClassUtil.add(expBox, 'hidden');
+            document.getElementById('btn-next-single').style.display = 'none';
+
+            for (var i = 0; i < qObj.opts.length; i++) {
+                var btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'practice-opt-btn';
+                btn.innerHTML = String.fromCharCode(65 + i) + ". " + qObj.opts[i];
+                (function(optIndex) {
+                    bindEvent(btn, 'click', function() { handleSingleAnswer(optIndex); });
+                })(i);
+                optContainer.appendChild(btn);
+            }
+        }
+
+        function handleSingleAnswer(optIndex) {
+            if (singleAnswered) return;
+            singleAnswered = true;
+            var qObj = singleQuestions[singleCurIndex];
+            var expBox = document.getElementById('single-exp-box');
+            ClassUtil.remove(expBox, 'hidden');
+
+            var optionButtons = document.getElementById('single-opt-grid').getElementsByTagName('button');
+            for (var i = 0; i < optionButtons.length; i++) {
+                optionButtons[i].disabled = true;
+                if (i === qObj.ans) ClassUtil.add(optionButtons[i], 'correct');
+                if (i === optIndex && optIndex !== qObj.ans) ClassUtil.add(optionButtons[i], 'incorrect');
+            }
+
+            if (optIndex === qObj.ans) {
+                playSound('correct');
+                singleScore += 10;
+                singleStreak++;
+                if (singleStreak > singleMaxStreak) singleMaxStreak = singleStreak;
+                expBox.innerHTML = "<div style='color:#16a34a; font-weight:bold; font-size:18px;'>回答正确！🎉</div>" + qObj.exp;
+            } else {
+                playSound('wrong');
+                singleStreak = 0;
+                expBox.innerHTML = "<div style='color:#dc2626; font-weight:bold; font-size:18px;'>回答错误 ❌ 正确答案是 " + String.fromCharCode(65 + qObj.ans) + "</div>" + qObj.exp;
+            }
+
+            document.getElementById('single-score').innerHTML = singleScore;
+            document.getElementById('single-streak').innerHTML = singleMaxStreak;
+
+            var nextBtn = document.getElementById('btn-next-single');
+            nextBtn.style.display = 'inline-block';
+            nextBtn.innerHTML = (singleCurIndex < singleQuestions.length - 1) ? '下一题' : '查看最终成绩';
+        }
+
+        bindEvent(document.getElementById('btn-next-single'), 'click', function() {
+            if (singleCurIndex < singleQuestions.length - 1) {
+                singleCurIndex++;
+                renderSingleQuestion();
+            } else {
+                playSound('win');
+                showModal("🏆 练习完成！", "恭喜你完成所有练习题！<br>总得分：<strong>" + singleScore + "</strong> 分<br>最高连对：<strong>" + singleMaxStreak + "</strong> 题");
+            }
+        });
+
+        bindEvent(document.getElementById('btn-restart-single'), 'click', function() {
+            singleCurIndex = 0;
+            singleScore = 0;
+            singleStreak = 0;
+            singleMaxStreak = 0;
+            document.getElementById('single-score').innerHTML = '0';
+            document.getElementById('single-streak').innerHTML = '0';
+            renderSingleQuestion();
+        });
+
+        // 双人擂台对战
+        var questions = [
+            { q: "半径 r = 3 cm 的圆，面积是多少？", opts: ["28.26 cm²", "18.84 cm²", "9.42 cm²", "12.56 cm²"], ans: 0 },
+            { q: "直径 d = 8 cm 的圆，面积是多少？", opts: ["201.06 cm²", "50.24 cm²", "25.12 cm²", "100.48 cm²"], ans: 1 },
+            { q: "周长 C = 12.56 cm 的圆，面积是多少？", opts: ["12.56 cm²", "25.12 cm²", "50.24 cm²", "6.28 cm²"], ans: 0 },
+            { q: "圆的半径扩大到 2 倍，面积扩大到几倍？", opts: ["2 倍", "4 倍", "8 倍", "16 倍"], ans: 1 },
+            { q: "半径 r = 10 cm 的圆，面积是多少？", opts: ["31.4 cm²", "62.8 cm²", "314 cm²", "628 cm²"], ans: 2 }
+        ];
+
+        var p1Score = 0, p2Score = 0, p1CurQ = 0, p2CurQ = 0;
+        var pkGameOver = false;
+
+        function renderPK(playerNum) {
+            var qIndex = (playerNum === 1) ? p1CurQ : p2CurQ;
+            var qObj = questions[qIndex % questions.length];
+            var qBox = document.getElementById((playerNum === 1 ? 'p1' : 'p2') + '-q-text');
+            var optBox = document.getElementById((playerNum === 1 ? 'p1' : 'p2') + '-options');
+
+            qBox.innerHTML = "<strong>第 " + (qIndex + 1) + " 题：</strong><br>" + qObj.q;
+            optBox.innerHTML = '';
+
+            for (var i = 0; i < qObj.opts.length; i++) {
+                var btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'pk-opt-btn';
+                btn.innerHTML = qObj.opts[i];
+                (function(optIndex, pNum) {
+                    bindEvent(btn, 'click', function() { handlePKAnswer(pNum, optIndex); });
+                })(i, playerNum);
+                optBox.appendChild(btn);
+            }
+        }
+
+        function handlePKAnswer(playerNum, optIndex) {
+            if (pkGameOver) return;
+            var qIndex = (playerNum === 1) ? p1CurQ : p2CurQ;
+            var qObj = questions[qIndex % questions.length];
+
+            if (optIndex === qObj.ans) {
+                playSound('correct');
+                if (playerNum === 1) {
+                    p1Score += 10;
+                    document.getElementById('p1-score').innerHTML = p1Score + " 分";
+                    p1CurQ++;
+                    renderPK(1);
+                } else {
+                    p2Score += 10;
+                    document.getElementById('p2-score').innerHTML = p2Score + " 分";
+                    p2CurQ++;
+                    renderPK(2);
+                }
+            } else {
+                playSound('wrong');
+            }
+
+            if (p1Score >= 50) {
+                pkGameOver = true;
+                playSound('win');
+                showModal("🏆 擂台胜负已出", "恭喜 <strong>红队 (左侧)</strong> 率先获得 50 分赢得胜利！");
+            } else if (p2Score >= 50) {
+                pkGameOver = true;
+                playSound('win');
+                showModal("🏆 擂台胜负已出", "恭喜 <strong>蓝队 (右侧)</strong> 率先获得 50 分赢得胜利！");
+            }
+        }
+
+        function resetPKGame() {
+            p1Score = 0; p2Score = 0; p1CurQ = 0; p2CurQ = 0;
+            pkGameOver = false;
+            document.getElementById('p1-score').innerHTML = "0 分";
+            document.getElementById('p2-score').innerHTML = "0 分";
+            renderPK(1);
+            renderPK(2);
+        }
+        bindEvent(document.getElementById('btn-start-pk'), 'click', resetPKGame);
+
+        bindEvent(window, 'resize', function() {
+            if (currentPage === 'home') drawHomeCircle();
+            else if (currentPage === 'grid') { resizeGridCanvas(); drawGridCanvas(); }
+            else if (currentPage === 'trans') { resizeCanvas1(); drawDerivation(); }
+        });
+
+        window.onload = function() {
+            drawHomeCircle();
+            updateCardCalculations();
+        };
+    </script>
+</body>
+</html>
